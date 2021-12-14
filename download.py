@@ -10,7 +10,7 @@ html_path = settings.html_path
 pdf_path = settings.pdf_path
 
 
-def get_urls():
+def get_urls(year):
     main_url = 'https://www.elitigation.sg/gdviewer'
     r = requests.get(main_url)
     if r.status_code != 200:
@@ -31,7 +31,7 @@ def get_urls():
 
     for i in range(1, 2):
     # for i in range(1, page_count + 1):
-        url = main_url + '/Home/Index?YearOfDecision=All&SortBy=DateOfDecision&CurrentPage=' + str(i)
+        url = main_url + f'/Home/Index?YearOfDecision={year}&SortBy=DateOfDecision&CurrentPage=' + str(i)
         r = requests.get(url)
         if r.status_code != 200:
             print('Failed to get page:', url)
@@ -108,7 +108,3 @@ def download_judgms():
         #     continue
         # with open(pdf_fname, 'wb') as f:
         #     f.write(r.content)
-
-
-get_urls()
-download_judgms()
