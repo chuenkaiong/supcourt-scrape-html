@@ -29,8 +29,7 @@ def get_urls(year):
     #     cases = []
     cases = []
 
-    for i in range(1, 2):
-    # for i in range(1, page_count + 1):
+    for i in range(1, page_count + 1):
         url = main_url + f'/Home/Index?YearOfDecision={year}&SortBy=DateOfDecision&CurrentPage=' + str(i)
         r = requests.get(url)
         if r.status_code != 200:
@@ -95,8 +94,10 @@ def download_judgms():
         if 'Page Not Found' in r.text:
             print('Page not found:', url)
             continue
-        with open(fname, 'w', encoding='utf=8') as f:
-            f.write(r.text)
+        soup = BeautifulSoup(r.text, 'lxml')
+        judgment_text = str(soup.find(id='divJudgement'))
+        with open(fname, 'w', encoding='utf-8') as f:
+            f.write(judgment_text)
         # pdf_fname = gd_url.rsplit('/', maxsplit=1)[-1] + '.pdf'
         # pdf_fname = pdf_path + pdf_fname
         # if os.path.exists(pdf_fname):

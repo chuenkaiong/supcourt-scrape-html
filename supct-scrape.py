@@ -26,7 +26,6 @@ if __name__ == "__main__":
     help="Year to scrape (use 'All' to scrape all cases to date)")
   parser.add_argument("--meta-only", "-m",
     action="store_true", 
-    default="False",
     help="Scrape only case metadata, omitting main text")
   args = parser.parse_args()
 
